@@ -1,2 +1,3 @@
-# realpython-rest-api-with-flask
-This code is based on the tutorial series entitled : "Python REST APIs With Flask, Connexion, and SQLAlchemy" by RealPython
+# Python REST APIs With Flask, Connexion, and SQLAlchemy
+
+**Disclaimer** : Both the tutorial and the code can be found [here](https://realpython.com/flask-connexion-rest-api) by [RealPython](https://github.com/realpython). I am just a learner not the code owner nor the author.
