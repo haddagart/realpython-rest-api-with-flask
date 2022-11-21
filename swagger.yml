@@ -1,0 +1,101 @@
+# Specifications
+openapi: 3.0.0
+info:
+  title: "First API using Swagger"
+  description: "An API based on Swagger for Flask framework following OpenAPI v3.0.0 specs"
+  version: "1.0.0"
+
+# Servers
+servers:
+  - url: "/api"
+
+# Components : Building blocks to be reused in the specification
+components:
+  schemas:
+    Person:
+      type: "object"
+      required:
+        - lname
+      properties:
+        fname:
+          type: "string"
+        lname:
+          type: "string"
+  parameters:
+    lname:
+      name: "lname"
+      description: "Last name of the person to get"
+      in: path
+      required: True
+      schema:
+        type: "string"
+
+# API endpoints
+paths:
+  /people:
+    # read all people
+    get:
+      operationId: "people.read_all"
+      tags:
+        - People
+      summary: "Read the list of people"
+      responses:
+        "200":
+          description: "Successfully read the list of people"
+    # create
+    post:
+      operationId: "people.create"
+      tags:
+        - People
+      summary: "Create a person"
+      requestBody:
+        description: "Create a person"
+        required: True
+        content:
+          application/json:
+            schema:
+              x-body-name: "person"
+              $ref: "#/components/schemas/Person"
+      responses:
+        "201":
+          description: "Successfully created a person"
+    # update
+    put:
+      tags:
+        - People
+      operationId: "people.update"
+      summary: "Update a person"
+      parameters:
+        - $ref: "#/components/parameters/lname"
+      responses:
+        "200":
+          description: "Successfully updated person"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: "person"
+              $ref: "#/components/schemas/Person"
+    # delete
+    delete:
+      tags:
+        - People
+      operationId: "people.delete"
+      summary: "Delete a person"
+      parameters:
+        - $ref: "#/components/parameters/lname"
+      responses:
+        "204":
+          description: "Successfully deleted person"
+
+  /people/{lname}:
+    get:
+      operationId: "people.read_one"
+      tags:
+        - People
+      summary: "Read one person"
+      parameters:
+        - $ref: "#/components/parameters/lname"
+      responses:
+        "200":
+          description: "Succesfully read person"
